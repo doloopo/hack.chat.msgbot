@@ -3,12 +3,10 @@
 	"version": "1.2.0",
 	"description": "API wrapper for hack.chat using ws package",
 	"main": "hackchat.js",
-	"dependencies":
-	{
+	"dependencies": {
 		"ws": "~0.7.2"
 	},
-	"repository":
-	{
+	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/webfreak001/hack.chat.js.git"
 	},
@@ -21,9 +19,11 @@
 	],
 	"author": "WebFreak001",
 	"license": "MIT",
-	"bugs":
-	{
+	"bugs": {
 		"url": "https://github.com/webfreak001/hack.chat.js/issues"
 	},
-	"homepage": "https://github.com/webfreak001/hack.chat.js#readme"
+	"homepage": "https://github.com/webfreak001/hack.chat.js#readme",
+	"devDependencies": {
+		"hack-chat": "^1.2.0"
+	}
 }
