@@ -2,14 +2,17 @@ var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
 //chat.join("lobby", "TestUser");
 
-var namelist = ["testchannel001", "testchannel002"];
+var namelist = ["testchannel001", "testchannel012"];
 var botName = "MsgBot"
 var sessions = [];
+
+var maxMsg = 100;
+var msgGiven = 20;
 
 var msgList = [];
 // Init msgList
 for(var i = 0; i < namelist.length; i++) {
-    
+    msgList.push([]);
 }
 
 function sleep(ms){
@@ -23,17 +26,23 @@ function getLocalTime(n) {
 }
 
 function store(op, message) {
-
+    if(op.length < maxMsg){
+        op.push(message);
+    } else {
+        op.splice(0, 1);
+        op.push(message);
+    }
+    return op;
 }
 
 // Join each channel
 var i = 0;  
 var id = setInterval(function(){
-    sessions.push(chat.join(namelist[i], "MsgBot"));
+    sessions.push(chat.join(namelist[i], botName));
     i++;
 
     if(i>= namelist.length) clearInterval(id); 
-}, 5000);
+}, 1000);
 
 /*
 for(var i = 0; i<namelist.length; i++){
@@ -52,7 +61,10 @@ chat.on("onlineSet", function(session, users) {
 chat.on("chat", function(session, nick, text, timestamp) {
     console.log(getLocalTime(timestamp)+"@"+nick + "@" + session.channel + ": " + text);
 
-    
+    var a = msgList[namelist.indexOf(session.channel)];
+    a = store(a, getLocalTime(timestamp)+"@"+nick+ ": " + text);
+
+    console.log(a);
     /*if (session.channel != "programming") {
         programmingSession.sendMessage("Quote from ?" + session.channel + ": " + text);
     }*/
