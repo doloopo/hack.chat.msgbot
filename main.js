@@ -2,13 +2,13 @@ var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
 //chat.join("lobby", "TestUser");
 
-var namelist = ["testchannel011"];
+var namelist = ["cxx_cjj", "defaultchannel001", "testchannel001"];
 var botName = "MsgBot"
 var sessions = [];
 
 var maxMsg = 100;
 var msgGiven = 20;
-var waitInterval = 1000; // should be set to 30000
+var waitInterval = 30000; // should be set to 30000
 
 var msgList = [];
 // Init msgList
@@ -70,7 +70,7 @@ chat.on("warn", function (session, text, time) {
 chat.on("onlineAdd", function (session, nick, time) {
     var messageListToBeSend = "[(del-" + nick + ") Hello, @" + nick + "! ]\n"
         + "These are the most recent " + msgGiven + " messages (if possible): \n";
-    for(var i = 0; i < msgList[namelist.indexOf(session.channel)].length; i++){
+    for (var i = msgList[namelist.indexOf(session.channel)].length - msgGiven; i < msgList[namelist.indexOf(session.channel)].length; i++) {
         messageListToBeSend += msgList[namelist.indexOf(session.channel)][i] + "\n";
     }
 
@@ -85,6 +85,16 @@ chat.on("chat", function (session, nick, text, timestamp) {
         a = store(a, getLocalTime(timestamp) + "@" + nick + ": " + text);
 
         console.log(a);
+    }
+
+    if (text == "!msg") {
+        var messageListToBeSend = "[(del-" + nick + ") Hello, @" + nick + "! ]\n"
+            + "These are the most recent " + maxMsg + " messages (if possible): \n";
+        for (var i = 0; i < msgList[namelist.indexOf(session.channel)].length; i++) {
+            messageListToBeSend += msgList[namelist.indexOf(session.channel)][i] + "\n";
+        }
+
+        session.sendMessage(messageListToBeSend);
     }
     /*if (session.channel != "programming") {
         programmingSession.sendMessage("Quote from ?" + session.channel + ": " + text);
