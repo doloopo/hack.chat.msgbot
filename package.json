@@ -25,5 +25,8 @@
 	"homepage": "https://github.com/webfreak001/hack.chat.js#readme",
 	"devDependencies": {
 		"hack-chat": "^1.2.0"
+	},
+	"scripts": {
+		"Start": "node main.js"
 	}
 }
