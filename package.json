@@ -27,6 +27,6 @@
 		"hack-chat": "^1.2.0"
 	},
 	"scripts": {
-		"Start": "node main.js"
+		"start": "node main.js"
 	}
 }
