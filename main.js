@@ -1,21 +1,22 @@
 // Keep app going
 // Importing the express module
 const express = require('express');
+var fs = require('fs');
 const app = express();
 
 // Initializing the data with the following string
 var data = "MsgBot is running. "
 
 // Sending the response for '/' path
-app.get('/' , (req,res)=>{
+app.get('/', (req, res) => {
 
-   // Sending the data json text
-   res.send(data);
+    // Sending the data json text
+    res.send(data);
 })
 
 // Setting up the server at port 3000
-app.listen(3410 , ()=>{
-   console.log("server running");
+app.listen(3410, () => {
+    console.log("server running");
 });
 
 var HackChat = require("hack-chat");
@@ -25,16 +26,32 @@ var chat = new HackChat(); // Client group for multiple channels
 var namelist = ["cxx_cjj", "defaultchannel001", "testchannel001"];
 var botName = "MsgBot"
 var sessions = [];
+var msgListFile = "msgList.txt"
 
 var maxMsg = 100;
 var msgGiven = 20;
 var waitInterval = 30000; // should be set to 30000
+var writeInterval = 10000;
 
 var msgList = [];
 // Init msgList
 for (var i = 0; i < namelist.length; i++) {
     msgList.push([]);
 }
+
+// Read msgList history
+fs.readFile(msgListFile, 'utf-8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+    if (data != "none") msgList = JSON.parse(data);
+})
+// Write msgList history
+setInterval(function () {
+    fs.writeFile(msgListFile, JSON.stringify(msgList), (err, data) => {
+        if (err) throw err;
+    })
+}, writeInterval);
+
 
 function sleep(ms) {
     var start = Date.now(), end = start + ms;
