@@ -105,7 +105,7 @@ chat.on("warn", function (session, text, time) {
 });
 
 chat.on("onlineAdd", function (session, nick, time) {
-    var messageListToBeSend = "[(del-" + nick + ") Hello, @" + nick + "! ]\n"
+    var messageListToBeSend = "!!(del-" + nick + ") Hello, @" + nick + "! !!\n"
         + "These are the most recent " + msgGiven + " messages (if possible): \n";
     for (var i = msgList[namelist.indexOf(session.channel)].length - msgGiven; i < msgList[namelist.indexOf(session.channel)].length; i++) {
         messageListToBeSend += msgList[namelist.indexOf(session.channel)][i] + "\n";
@@ -125,7 +125,7 @@ chat.on("chat", function (session, nick, text, timestamp) {
     }
 
     if (text == "!msg") {
-        var messageListToBeSend = "[(del-" + nick + ") Hello, @" + nick + "! ]\n"
+        var messageListToBeSend = "!!(del-" + nick + ") Hello, @" + nick + "! !!\n"
             + "These are the most recent " + maxMsg + " messages (if possible): \n";
         for (var i = 0; i < msgList[namelist.indexOf(session.channel)].length; i++) {
             messageListToBeSend += msgList[namelist.indexOf(session.channel)][i] + "\n";
