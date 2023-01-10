@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/webfreak001/hack.chat.js#readme",
 	"devDependencies": {
+		"express": "^4.18.2",
 		"hack-chat": "^1.2.0"
 	},
 	"scripts": {
